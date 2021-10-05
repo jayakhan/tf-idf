@@ -72,13 +72,22 @@ def main():
         raw = [token for token in document if token == term]
         return len(raw)
 
-    def valid_doc(term, document):
-        df = 1 if term in document else 0
-        return df
+    # def valid_doc(term, document):
+    #     df = 1 if term in document else 0
+    #     return df
+
+    def count_doc(term):
+        count = 0
+        for document in documents:
+            if term in document:
+                count += 1
+                next
+        return count
+
 
     X = np.array([
         [
-            np.log10(count_terms(term, document) + 1) * np.log10(len(documents)/(valid_doc(term, document) + 1))
+            np.log(count_terms(term, document) + 1) * np.log(len(documents)/(count_doc(term) + 1))
             for term in terms
         ]
         for document in documents

@@ -72,9 +72,19 @@ def main():
         raw = [token for token in document if token == term]
         return len(raw)
 
+    def valid_doc(term, document):
+        count = 0
+        percent_weight = int(0.7 * len(document))
+        for token in document:
+            if term == token:
+                count += 1
+        if count >= percent_weight: return 1 
+        else: return 0
+
+
     X = np.array([
         [
-            count_terms(term, document)/len(document)
+            np.log(count_terms(term, document) + 1) * np.log(len(documents)/(valid_doc(term, document) + 1))
             for term in terms
         ]
         for document in documents
